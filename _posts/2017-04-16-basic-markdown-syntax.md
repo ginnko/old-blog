@@ -43,7 +43,11 @@ tag: markdown
     |CNY|HKD|
     |:---|---:|
     |1|1.1292|  
-    英文冒号的位置表示文字在表格中的位置（居中、靠左、靠右）
+    英文冒号的位置表示文字在表格中的位置（居中、靠左、靠右）  
+    使用表格前要在_config.yml文件中加入：  
+    markdown: redcarpet  
+    recarpet:  
+        entensitons: ["tables"]
 
 >引自2017.4.16汇率  
 
