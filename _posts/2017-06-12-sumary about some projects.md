@@ -51,6 +51,8 @@ false不能用具体某个数字表示：-1 ！== false
 
 - 数组的push（）函数，如果参数是一个数组，那么结果将是一个二维数组，如果改动这个二维数组中的元素，则原来那个作为参数传入的数组中的相应元素也会被改动，push（）函数执行的是浅复制操作。
 
+[游戏入口](https://codepen.io/ginnko/full/dRPXGv/)(https://codepen.io/ginnko/full/dRPXGv/)
+
 
 
 
