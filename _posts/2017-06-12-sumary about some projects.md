@@ -21,7 +21,7 @@ tag: javascript function variable
 
 		在语句块中使用let声明局部变量：
 		function foo() {
-			for(**let** i=0; i<100; i++){
+			for(let i=0; i<100; i++){
 			//
 			}
 			i += 100; //在for循环外仍然可以使用i！！！
