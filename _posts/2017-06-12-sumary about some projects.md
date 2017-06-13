@@ -2,7 +2,7 @@
 layout: post
 title: Tic Tac Toe 游戏项目总结
 date: 2017-06-12
-tag: jQuery on off push 变量作用域
+tag: jQuery,on,off,push,变量作用域
 ---
 
 ### 1. 变量作用域  
