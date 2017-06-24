@@ -104,7 +104,7 @@ tag: React
 #### 一些问题  
 1. 最初的代码是，关于图标和表格标题的部分都写在html文档中，页面一加载就能看到这两项内容，表格的数据部分用json获取后通过React返回。当React使用render返回一个被DOM元素包裹的数组时，React会自动将其展开一条一条列出。但是，render函数中要求只能有一个顶级标签，导致返回的表格数组和已经写好的表格标题不一样大小，只占其第一列的宽度。没有查到解决办法，参考别人的项目，也没有这样写的，最后只能让所有的部分都由React来实现。希望能找到解决上述问题的方法。 
 2. colspan 属性名在JSX中要写成colSpan才会被识别。
-3. 在看官网文档的过程中，发现ES6发布后，React的一些方法有了改变，阮一峰大神的教程使用的是ES6发布前的方法。这个demo也没有使用ES6，但是在之后的练习中都要使用最新的方法。下面两个链接是React官方文档和是否使用ES6的一些方法的改变对比：  
+3. ES6发布后，React的一些方法有了改变，阮一峰大神的教程使用的是ES6发布前的方法。这个demo也没有使用ES6，但是在之后的练习中都要使用最新的方法。下面两个链接是React官方文档和是否使用ES6的一些方法的改变对比：  
 
  - [常用方法](https://facebook.github.io/react/docs/react-component.html)
  - [是否使用ES6的方法对比](https://facebook.github.io/react/docs/react-without-es6.html)  
