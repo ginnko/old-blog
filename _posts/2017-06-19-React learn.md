@@ -119,6 +119,7 @@ tag: React
 2. 使用localStorage.setItem(key, value)存入对象，localStorage.getItem(key)获取对象。  
 3. 对于有默认初始值得情况，使用下面的方法进行第一次赋值，借鉴了[Awesomen3ss 大神](https://codepen.io/awesom3/pen/Hlfma?editors=1010)的方法。  
 
+项目中的代码如下：  
 
 	var recipeList = [["Braised string bean with noodle", "garlic", "noodle", "string bean","coriander", "salt", "light soy sauce"], ["Braised hairtail", "hairtail", "vinegar", "scallion", "garlic", "ginger", "distilled spirit", "salt"], ["Scrambled eggs with tomatoes", "tomatoes", "egg", "scallion", "salt"]];  
 	var condition = localStorage.getItem("recipeList");
