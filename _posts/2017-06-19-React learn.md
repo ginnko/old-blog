@@ -18,8 +18,9 @@ tag: React
 
 - 教程里有个使用Promise的例子，虽然明白Promise最主要的有点就是将执行过程和结果分开，但是并没有觉得这有什么特别好处，只是看起来更清晰了？关于Promise的部分参考了[廖大角虫的教程](http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/0014345008539155e93fc16046d4bb7854943814c4f9dc2000)。
 - 当使用setInterval()和Ajax的同时使用了bind（）函数，不太理解这个地方。
-> bind(this)是将当前作用域传入相应的函数，在ES6中被要求要明确的表示，因为不再自动匹配，在下面的[“是否使用ES6的方法对比”](https://facebook.github.io/react/docs/react-component.html)中有说明。
+> bind(this)是将当前作用域传入相应的函数，在ES6中被要求要明确的表示，因为不再自动匹配，在下面的[“是否使用ES6的方法对比”](https://facebook.github.io/react/docs/react-component.html)中有说明。  
 
+- receive box这个应用中，自己写的代码是把所有的功能放进一个组件类中，别人的代码是像函数那样将完成一个功能的代码组合放进一个单独的组件类，在其他组件类中进行调用。后面的练习要使用这种方式。
 
 ### 3. 注意
 - 组件类的变量名的首字母要**大写**！！！
@@ -109,6 +110,48 @@ tag: React
  - [常用方法](https://facebook.github.io/react/docs/react-component.html)
  - [是否使用ES6的方法对比](https://facebook.github.io/react/docs/react-without-es6.html)  
  
+
+### 2. Recipe game
+这个项目大结构使用了Bootstrap的[Modal](https://v4-alpha.getbootstrap.com/components/modal/)和cards中的[list group](https://v4-alpha.getbootstrap.com/components/card/)。使用动态Modal弹出一个窗口接受和修改数据，list group用来组织数据，静态Modal用来显示数据。
+#### localStorage
+参考资料：[localStorage接口](https://developer.mozilla.org/zh-CN/docs/Web/API/Storage)、[JSON.stringify()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)、[JSON.parse()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)  
+1. 能存入localstorage的数据没有限制原数据结构，只要转成字符串都可以存入。存入前使用JSON.stringify（）将原对象转成字符串，取出后使用JSON.parse()还原成原数据结构。  
+2. 使用localStorage.setItem(key, value)存入对象，localStorage.getItem(key)获取对象。  
+3. 对于有默认初始值得情况，使用下面的方法进行第一次赋值，借鉴了[Awesomen3ss 大神](https://codepen.io/awesom3/pen/Hlfma?editors=1010)的方法。  
+
+
+	var recipeList = [["Braised string bean with noodle", "garlic", "noodle", "string bean","coriander", "salt", "light soy sauce"], ["Braised hairtail", "hairtail", "vinegar", "scallion", "garlic", "ginger", "distilled spirit", "salt"], ["Scrambled eggs with tomatoes", "tomatoes", "egg", "scallion", "salt"]];  
+	var condition = localStorage.getItem("recipeList");
+	if(condition === null){
+      localStorage.setItem("recipeList", JSON.stringify(recipeList));
+	}
+
+#### handle事件的绑定和使用
+- React的ES6版本中，handle事件要在初始化中明确绑定，参考[官方文档](https://facebook.github.io/react/docs/handling-events.html)。  
+
+下面的代码是这个项目中的使用：
+
+	constructor(props){
+	  super(props);
+	  this.state = {list: localStorage.getItem("recipeList"), value: [temRecipe,temIngredients]};
+	  this.handleClick = this.handleClick.bind(this);
+	  this.handleChange = this.handleChange.bind(this);
+	}  
+
+- "this"位于一个函数中时，它的作用域就是这个函数，正常函数的写法无法接触到需要的DOM对象，导致无法加载DOM对象，页面一篇空白的错误，解决方法是使用[arrow function](https://stackoverflow.com/questions/41174980/handling-clicks-on-dynamically-generated-buttons)，handle函数和后面的应用函数都使用箭头函数的形式。**关于this的使用还是不太理解！**
+
+下面的代码是这个项目中的使用：  
+
+	handleChange = (event) => {//。。。}
+	handleClick = (event) => {//。。。}
+	var recipeStructure = JSON.parse(this.state.list).map((val, index) => {//。。。}
+	var ingredientsList = val.slice(1).map((ele, index) => {//。。。}
+
+- 如果一个map函数循环一个数组并作为组件对象输出到最后的DOM结构中时，要在每次输出过程中包含一个类似id的成为key的属性，来帮助React识别哪一条发生了改变，参考[官方文档](https://facebook.github.io/react/docs/lists-and-keys.html)。
+
+#### Forms的Controlled Components
+"input"、"textarea"标签使用value属性定义页面加载后输入框中的内容，要想实现能够被编辑，需要再添加onChange属性，参考[官网文档](https://facebook.github.io/react/docs/forms.html#default-value)。
+
 
 
 
