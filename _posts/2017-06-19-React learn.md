@@ -112,7 +112,7 @@ tag: React
  
 
 ### 2. Recipe game
-这个项目大结构使用了Bootstrap的[Modal](https://v4-alpha.getbootstrap.com/components/modal/)和cards中的[list group](https://v4-alpha.getbootstrap.com/components/card/)。使用动态Modal弹出一个窗口接受和修改数据，list group用来组织数据，静态Modal用来显示数据。
+这个[demo](https://codepen.io/ginnko/full/XgzqKG/)是FreeCodeCamp的一个练习，使用React实现（2017.6.28完成）。大结构使用了Bootstrap的[Modal](https://v4-alpha.getbootstrap.com/components/modal/)和cards中的[list group](https://v4-alpha.getbootstrap.com/components/card/)。使用动态Modal弹出一个窗口接受和修改数据，list group用来组织数据，静态Modal用来显示数据。
 #### localStorage
 参考资料：[localStorage接口](https://developer.mozilla.org/zh-CN/docs/Web/API/Storage)、[JSON.stringify()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)、[JSON.parse()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)  
 1. 能存入localstorage的数据没有限制原数据结构，只要转成字符串都可以存入。存入前使用JSON.stringify（）将原对象转成字符串，取出后使用JSON.parse()还原成原数据结构。  
