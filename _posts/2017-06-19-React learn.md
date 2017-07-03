@@ -25,6 +25,11 @@ tag: React
 ### 3. 注意
 - 组件类的变量名的首字母要**大写**！！！
 - rent中的顶级标签只能有一个，所以示例中的全部用<div>标签包裹
+- 关于[handle事件和this](https://facebook.github.io/react/docs/handling-events.html)  
+如果一个方法后面没有直接跟着一个括号，就要手动绑定this和这个方法。解决办法有三：  
+> 1. 手动在constructor方法里绑定，例如：this.handleClick = this.handleClick.bind(this);
+> 2. 使用属性初始化语法 handleClick = () =>{//其他代码}**结束没有分号**
+> 3. 使用箭头函数，前面不需要事先绑定或使用属性初始化语法，在元素中使用箭头函数： <button onClick={(e) => this.handleClick(e)}>Click me</button>
 
 ## 应用
 ### 1. Leaderboard
