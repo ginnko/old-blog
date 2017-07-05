@@ -14,7 +14,7 @@ tag: React
 
 ### 2. 问题
 - 不太清楚React具体能做什么
-> 在下面的想法中，有模糊的描述，感觉还需要做更多的练习才能体会。
+> 通过这段时间的练习，感觉React确实很适合UI，大神们说的没错。
 
 - 教程里有个使用Promise的例子，虽然明白Promise最主要的有点就是将执行过程和结果分开，但是并没有觉得这有什么特别好处，只是看起来更清晰了？关于Promise的部分参考了[廖大角虫的教程](http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/0014345008539155e93fc16046d4bb7854943814c4f9dc2000)。
 - 当使用setInterval()和Ajax的同时使用了bind（）函数，不太理解这个地方。
@@ -158,8 +158,76 @@ tag: React
 #### Forms的Controlled Components
 "input"、"textarea"标签使用value属性定义页面加载后输入框中的内容，要想实现能够被编辑，需要再添加onChange属性，参考[官网文档](https://facebook.github.io/react/docs/forms.html#default-value)。
 
+### 3. Game of Life
+这个[demo](https://codepen.io/ginnko/full/YQvVRw/)是FreeCodeCamp的一个练习，使用React实现（2017.7.05完成）。在做这个项目之前，把官方文档的基础部分全部看了一遍，这个项目中，尽量应用了学到的一些原则，比如把有具体单一功能的代码放到一个组件或函数中。  
 
+- 函数
+> search：获取某个存活细胞周围的8个邻居
+> execute: 判断这当代细胞的存活
+> repeat： 重复执行判断过程
 
+- 组件
+> NewTable：制造board
+> TableConstruct: 加载board以及三类点击事件（控制、board大小、速度）
+
+感觉TableConstruct的内容依然过多，可以进一步分离。 
+#### setTimeout()
+- 在React中，如果想要实现通过点击某个按钮来实现改变某个元素变化的速度，就要通过[SetTimeout()](https://stackoverflow.com/questions/1280263/changing-the-interval-of-setinterval-while-its-running)来实现。setTimeout()允许在运行过程中改变时间间隔，setInterval()没有这项功能。
+- 如果要在setTimeout()或setInterval()的回调函数中直接使用所在组件的this，因为[作用域](https://stackoverflow.com/questions/26348557/issue-accessing-state-inside-setinterval-in-react-js)的原因，要var self = this;通过self传入this或手动绑定this。
+- setInterval()的循环不能直接放进for或while循环体中，要是用类似迭代的方式。  
+如下代码：
+	
+		function repeat(){
+		  execute();
+		  timer = setTimeout(repeat, self.state.speed);
+		}
+
+#### state & props
+本例中，NewTable组件里同时使用了props和state，忘记官方文档里是不是有说尽量把state和props分开使用了，这个有待确定。代码如下：
+
+	  class NewTable extends React.Component{
+	    constructor(props){
+	      super(props);
+	      this.handleClick = this.handleClick.bind(this);
+	      this.state = {};
+	    }
+	    handleClick(e){
+	      var flag = e.target.getAttribute("class");
+	      if(flag === "white"){
+	        e.target.setAttribute("class", "red");
+	      }else{
+	        e.target.setAttribute("class", "white");
+	      }
+	    }
+	    render(){
+	      var row = [];
+	      var rowLen = this.props.rowNumber;
+	      var columnLen = this.props.columnNumber;
+	      var key = 0;
+	      var flag = 0;
+	      for(let j = 0; j<rowLen; j++){
+	        var tableData = [];
+	        for(let i = 0; i<columnLen; i++){
+	          if(start === 0){
+	            flag = Math.round(Math.random());
+	          }else{
+	            flag = 0;
+	          }
+	          tableData.push(<td id={key++} r={0} onClick={this.handleClick} className={flag===0?"white":"red"} role="button"></td>);
+	        }
+	        row.push(<tr>{tableData}</tr>);
+	      }
+	      start = 1;
+	      return <tbody>{row}</tbody>;
+	    }
+	  }
+
+#### 关于jQuery和DOM的操作
+- 使用jQuery删除属性，方法：`$("p").removeAttr("id");`即可成功删除id属性。
+- DOM元素使用`getAttribute()`和`setAttribute()`两个函数来操作属性；而jQuery使用`.attr()`来操作属性
+
+#### JSX中的属性名称
+官方文档中，有说JSX属性名称使用驼峰命名法，这个项目中NewTable组件里的这行代码`tableData.push(<td id={key++} r={0} onClick={this.handleClick} className={flag===0?"white":"red"} role="button"></td>);`最开始属性名**r**是写作**relive**但是在后面获取时失败，这明明是一个单词，不知道该在哪里驼峰。。。有待确认。  
 
 未完。。。
 
