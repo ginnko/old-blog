@@ -162,13 +162,13 @@ tag: React
 这个[demo](https://codepen.io/ginnko/full/YQvVRw/)是FreeCodeCamp的一个练习，使用React实现（2017.7.05完成）。在做这个项目之前，把官方文档的基础部分全部看了一遍，这个项目中，尽量应用了学到的一些原则，比如把有具体单一功能的代码放到一个组件或函数中。  
 
 - 函数
-> search：获取某个存活细胞周围的8个邻居
-> execute: 判断这当代细胞的存活
-> repeat： 重复执行判断过程
+> search：获取某个存活细胞周围的8个邻居  
+> execute: 判断这当代细胞的存活  
+> repeat： 重复执行判断过程  
 
 - 组件
-> NewTable：制造board
-> TableConstruct: 加载board以及三类点击事件（控制、board大小、速度）
+> NewTable：制造board  
+> TableConstruct: 加载board以及三类点击事件（控制、board大小、速度）  
 
 感觉TableConstruct的内容依然过多，可以进一步分离。 
 #### setTimeout()
