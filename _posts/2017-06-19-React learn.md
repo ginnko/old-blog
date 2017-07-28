@@ -39,7 +39,7 @@ tag: React
 >这个方法用来实现当属性或状态发生变化时，对页面中的相应内容进行变更。[demo](https://codepen.io/ginnko/full/bRqXaN/)中点击30天内的分数排名和总分数排名的切换就是通过这个方法实现的。实现的代码如下：  
 
 
-	
+
 	componentDidUpdate(){
 	  this.props.promise.then(
 	    value => this.setState({loading: false, data: value}),
@@ -108,13 +108,13 @@ tag: React
 2. 本例中，使用componentDidMount方法来处理ajax请求，根据现在掌握的资料，推断这个方法只能使用一次，也就是在组件加载完成后，之后属性或状态再发生变化要通过componentDidUpdate()方法（有待研究）或handleEvent系列属性来实现。另一个handleEvent属性的实例：[阮大角虫的教程](http://www.ruanyifeng.com/blog/2015/03/react.html)中第9个demo是一个实时显示的应用，使用的是handleChange属性，属性函数里用event.target.value来获取实时改变的值并显示。
 
 #### 一些问题  
-1. 最初的代码是，关于图标和表格标题的部分都写在html文档中，页面一加载就能看到这两项内容，表格的数据部分用json获取后通过React返回。当React使用render返回一个被DOM元素包裹的数组时，React会自动将其展开一条一条列出。但是，render函数中要求只能有一个顶级标签，导致返回的表格数组和已经写好的表格标题不一样大小，只占其第一列的宽度。没有查到解决办法，参考别人的项目，也没有这样写的，最后只能让所有的部分都由React来实现。希望能找到解决上述问题的方法。 
+1. 最初的代码是，关于图标和表格标题的部分都写在html文档中，页面一加载就能看到这两项内容，表格的数据部分用json获取后通过React返回。当React使用render返回一个被DOM元素包裹的数组时，React会自动将其展开一条一条列出。但是，render函数中要求只能有一个顶级标签，导致返回的表格数组和已经写好的表格标题不一样大小，只占其第一列的宽度。没有查到解决办法，参考别人的项目，也没有这样写的，最后只能让所有的部分都由React来实现。希望能找到解决上述问题的方法。
 2. colspan 属性名在JSX中要写成colSpan才会被识别。
 3. ES6发布后，React的一些方法有了改变，阮一峰大神的教程使用的是ES6发布前的方法。这个demo也没有使用ES6，但是在之后的练习中都要使用最新的方法。下面两个链接是React官方文档和是否使用ES6的一些方法的改变对比：  
 
  - [常用方法](https://facebook.github.io/react/docs/react-component.html)
  - [是否使用ES6的方法对比](https://facebook.github.io/react/docs/react-without-es6.html)  
- 
+
 
 ### 2. Recipe game
 这个[demo](https://codepen.io/ginnko/full/XgzqKG/)是FreeCodeCamp的一个练习，使用React实现（2017.6.28完成）。大结构使用了Bootstrap的[Modal](https://v4-alpha.getbootstrap.com/components/modal/)和cards中的[list group](https://v4-alpha.getbootstrap.com/components/card/)。使用动态Modal弹出一个窗口接受和修改数据，list group用来组织数据，静态Modal用来显示数据。
@@ -170,13 +170,13 @@ tag: React
 > NewTable：制造board  
 > TableConstruct: 加载board以及三类点击事件（控制、board大小、速度）  
 
-感觉TableConstruct的内容依然过多，可以进一步分离。 
+感觉TableConstruct的内容依然过多，可以进一步分离。
 #### setTimeout()
 - 在React中，如果想要实现通过点击某个按钮来实现改变某个元素变化的速度，就要通过[SetTimeout()](https://stackoverflow.com/questions/1280263/changing-the-interval-of-setinterval-while-its-running)来实现。setTimeout()允许在运行过程中改变时间间隔，setInterval()没有这项功能。
 - 如果要在setTimeout()或setInterval()的回调函数中直接使用所在组件的this，因为[作用域](https://stackoverflow.com/questions/26348557/issue-accessing-state-inside-setinterval-in-react-js)的原因，要var self = this;通过self传入this或手动绑定this。
 - setInterval()的循环不能直接放进for或while循环体中，要是用类似迭代的方式。  
 如下代码：
-	
+
 		function repeat(){
 		  execute();
 		  timer = setTimeout(repeat, self.state.speed);
@@ -229,8 +229,29 @@ tag: React
 #### JSX中的属性名称
 官方文档中，有说JSX属性名称使用驼峰命名法，这个项目中NewTable组件里的这行代码`tableData.push(<td id={key++} r={0} onClick={this.handleClick} className={flag===0?"white":"red"} role="button"></td>);`最开始属性名**r**是写作**relive**但是在后面获取时失败，这明明是一个单词，不知道该在哪里驼峰。。。有待确认。  
 
-未完。。。
+### 4. [Roguelike Dungeon Crawler Game](https://codepen.io/ginnko/full/JydBWO/)(2017.7.28完成)
+这个小项目是目前最耗时的一个，写了很久，也有很多想法。最重要的一个想法是基础太重要了，所以决定后面拿出一部分时间来复习css、js基础。下面来说这个项目。  
 
+#### 过程：  
+界面可以分成五个部分，左侧的状态、中间的游戏板、上方的阴影遮挡、右侧的解释以及下方的说明。  
+- 下方的说明：说明部分没有借助React，是使用html节点直接显示
+- 左侧状态栏、右侧解释栏：独立组件，使用React生成，但是其中信息的更新使用了全局变量，没有通过React的状态更新（因为不知如何用React处理游戏板更新但状态栏和解释栏不变的情况）。
+- 中间游戏板： 独立组件，使用React生成，每一层的随机设置使用Math.random()函数，层与层的转换借助floor state。
+- 上方阴影遮挡： 独立组件，使用React生成，代码类似中间游戏板，去掉了随机布置的部分。透明部分使用jQuery和css完成定位和透明度转换。  
 
+#### 遇到的问题和解决办法
+1. 第一个问题是在<table>标签中使用onKeyDown事件，搜索发现，有两种解决办法。第一种是，在table类的标签中增加**tabindex="0"**属性，用来解决table类的节点不能focused的问题，但失败了，其没有找到原因，猜测和作用域有关系；第二种办法是，在componentDidMount中设置事件监听函数，进行窗口监听，获取onKeyDown事件，成功，监听代码见[MozillaMDN](https://developer.mozilla.org/zh-CN/docs/Web/API/KeyboardEvent/key)。  
+2. 在外部函数中改变组件的state，来re-render。解决办法是利用全局变量floor和新建一个变量var self = this;来消除作用域的隔绝。  
 
+			 floor = 1;//全局变量  
+			 var self = this;//用self变量消除作用域隔绝问题
+			 move (id, nav, self)//将self作为函数参数传入外部move函数  
+			 floor++;
+			 self.setState({floor: floor});//在move中改变组件的state
+3. 地图死角问题。使用外部函数fix来解决，开始想在地图生成组件的最后来解决，但是发现捕捉到的节点全是未定义，由于React在加载前构建的全都是空节点，所以没办法使用这种方法，所以在componentDidMount、componentDidUpdate中调用fix函数通过jQuery来对地图调整。
+4. 左侧状态栏、中间游戏板、右侧解释栏以及上方阴影遮挡的布局问题。最后使用绝对位置和相对位置成功解决。**基础就是这么的重要啊！！！**
+5. 上方阴影遮挡空白处随方向键移动问题。通过外部函数eye（），利用jQuery和css解决，使用了jQuery中我不太常用的.filter（）函数。另外，在实现这个功能的过程中，开始fighter从一层进入下一层时，上一层的空白可见区域会遗留而不跟随新的fighter位置变化。开始以为这个问题是因为阴影遮挡组件没有状态改变，所以不会重新加载的原因，但是通过获取fighter的更新位置，发现在地图生成组件和componentDidUpdate中获取的位置是一致的，而且只使用了jQuery和css实现，应该不是React的render问题。最后发现是在事件监听部分，先把fighter的id获取传给了一个变量，再将这个变量传给位于move（）后面的eye（）函数。move（）函数中已经变化了层数，更新了fighter的位置，但是传入的id是上一层的door的位置，所以此处不借助中间变量，直接使用`$(".red").attr("id")`获取最新的位置，解决了这个问题。  
 
+#### 遗留的问题
+1. 地图生成使用了最简单的随机生成，生成复杂的规整地图有些乏力；
+2. 目前没有实现固定小窗口，在小窗口内移动变换空间的功能，猜测使用了overflow属性，但查看资料overflow只对block元素有效，table类元素调整起来貌似有些困难。
