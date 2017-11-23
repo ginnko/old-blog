@@ -17,35 +17,9 @@ tag: reStructuredText
 
 ### 说明
 
-一般语法可以参考上述所有资料，本文记录reStructedText的重要结构和特殊语法。
+一般语法可以参考上述所有资料，本文记录reStructedText的特殊语法。
 
-### 文档结构
-
-* 入口文件：
-
-  ```
-  .. toctree::
-     :maxdepth: 2
-     :hidden:
-
-     README
-     book/UOS4.0介绍
-     book/快速入门/index
-     book/UOS项目平台/index
-     book/UOS管理平台/index
-     book/UOS计费系统/index
-     book/UOS审批系统/index
-     book/UOS存储平台/index
-     book/UOS工单系统/index
-  ```
-
-  * `.. toctree::`：这个指令用来设置文档组织结构，其中
-    * `:maxdepth: 2` ：用来设置目录显示层级
-    * `:hidden: 用来设置是否在每个主页（index）中显示该目录`
-    * `:number:`用来设置是否在目录前列出编号
-  * 下面的部分表示组织起来的结构，这里分别是各个章节的主页，会显示章节标题。每个章节的主页中再以此种形式列出各自的结构组织。
-
-### 特殊语法
+### 内部链接
 
 * 文档内链接跳转语法
 
@@ -66,6 +40,19 @@ tag: reStructuredText
 
      前后各有一个空格，<>前有一个空格
 
+
+### 表格
+
+实际使用中发现，生成的pdf里，表格中的内容如果是以下划线连接的文字、斜杠连接的文字，表格在宽度不够的情况下无法自动分割文字至多行来适应有限的宽度。（也可能行数超过30行，但目前写的文档最后一列可以自动分割，推测是上述原因）
+
+* 写表格使用vim配合vim-table-mode插件。
+  * 安装：
+    1. 首先安装**[NeoBundle](https://github.com/Shougo/neobundle.vim)** ；
+       * 注意：.vimrc文件要自己创建，内容可以复制官方文档中给出的内容。
+    2. 调出vim，执行`:NeoBundleInstall` 在官方文档上有说明；
+    3. 在**~/.vimrc**文档中添加`NeoBundle 'dhruvasagar/vim-table-mode'` ；
+  * 使用：vim界面输入`:TableModeToggle` 开启表格模式，接着分别输入`let g:table_mode_corner_corner='+'` 以及`let g:table_mode_header_fillchar='='` 进入reStructuredText模式。详细使用见[官方文档](https://github.com/dhruvasagar/vim-table-mode) 。
+  * 修改：如果是重新打开文档，那么修改前要输入上述三个命令，进入正确的模式。**修改只要修改内容，不用管边框是否对齐，不要手动调整！vim-table-mode插件会自动补齐。**
 
 
 
