@@ -84,3 +84,25 @@ tag: javascript
     ```
 
     上面代码中，传统for循环和for of循环的结果相似。
+
+3. 函数表达式
+
+    函数表达式也可以提供函数名，并且可以用于在函数内部代指其本身，或者在调试器堆栈跟踪中识别该函数。
+
+    ```
+    var factorial = function fac(n) {return n<2 ? 1 : n*fac(n-1)};
+
+    console.log(factorial(3));
+    ```
+
+    注意下面代码中`square`并非函数名，下面这个函数是匿名函数。
+
+    ```
+    var square = function(number) { return number * number; };
+    var x = square(4); // x gets the value 16
+    ```
+4. Arguments对象
+
+    arguments 是一个对应于传递给函数的参数的类数组对象。
+
+    arguments对象是所有非箭头函数中都可用的局部变量。可以使用arguments对象在函数中引用函数的参数。
