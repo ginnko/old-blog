@@ -143,17 +143,89 @@ tag: javascript
             ```
 9. 扩展语句
 
+    **注意！！！**在数组或函数中使用展开语法时，该语法只可用于可迭代对象！！！！！
+
     1. 函数调用
 
         `myFunction(...iterableObj);`
 
+        1. 普通函数调用时等价于apply的方式
+
+            ```
+            function myFunction(x, y, z) { }
+            var args = [0, 1, 2];
+            myFunction.apply(null, args);
+            ```
+        
+        2. 在new表达式中应用时，不能直接使用数组+apply的方式（apply 执行的是调用 [[Call]] , 而不是构造 [[Construct]]），这时，使用扩展语句就要方便的多
+
+            ```
+            var dateFields = [1970，0，1]; // 1970年1月1日
+            var d = new Date（... dateFields）;
+            ```
     
     2. 字面量数组构造或字符串
 
         `[...iterableObj, '4', ...'hello', 6];`
 
+        1. 利用扩展语法构造字面量数组
+
+        2. 数组拷贝
+
+            扩展语法与`Object.assign()`执行的都是浅拷贝（只遍历一层）。所以才会出现下述结果：
+
+            ```
+            var a = [[1], [2], [3]];
+            var b = [...a];
+            b.shift().shift(); // 1
+            // Now array a is affected as well: [[], [2], [3]]
+            ```
+        
+        3. 使用`扩展语句`和`Array.concat`有相同的效果
+
+            ```
+            //使用Array.concat
+            var arr1 = [0, 1, 2];
+            var arr2 = [3, 4, 5];
+            // 将 arr2 中所有元素附加到 arr1 后面并返回
+            var arr3 = arr1.concat(arr2);
+
+            //使用扩展语法
+            var arr1 = [0, 1, 2];
+            var arr2 = [3, 4, 5];
+            var arr3 = [...arr1, ...arr2];
+            ```
+
+        4. 使用`扩展语句`和`Array.unshift`有相同的效果
+
+            ```
+            //使用unshift函数
+            var arr1 = [0, 1, 2];
+            var arr2 = [3, 4, 5];
+            // 将 arr2 中的元素插入到 arr1 的开头
+            Array.prototype.unshift.apply(arr1, arr2) // arr1 现在是 [3, 4, 5, 0, 1, 2]
+
+            //使用扩展语法
+            var arr1 = [0, 1, 2];
+            var arr2 = [3, 4, 5];
+            arr1 = [...arr2, ...arr1]; // arr1 现在为 [3, 4, 5, 0, 1, 2]
+            ```
+
+
     3. 构造字面量对象时,进行克隆或者属性拷贝
 
         `let objClone = { ...obj };`
 
-未完，看到[这里](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Spread_syntax)。
+        1. **使用`扩展语句`和`Object.assign`有相同的效果**；
+
+        2. `Object.assign`仅会针对对象自身的可枚举的属性进行操作；
+
+        3. `Object.assign`会触发`setter`，而展开语句不会。
+
+            关于这条，触发了`setter`又如何，有什么特殊的影响？感觉没有诶。。。MDN的`Object.assign`页面上有下述描述：
+
+            >该方法使用源对象的[[Get]]和目标对象的[[Set]]，所以它会调用相关 getter 和 setter。因此，它分配属性，而不仅仅是复制或定义新的属性。如果合并源包含getter，这可能使其不适合将新属性合并到原型中。为了将属性定义（包括其可枚举性）复制到原型，应使用Object.getOwnPropertyDescriptor()和Object.defineProperty() 。
+
+            sowhat？暂时搁置。
+
+
