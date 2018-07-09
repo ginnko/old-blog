@@ -35,7 +35,7 @@ social:
 
 permalink: /:year/:month/:title/
 # Format
-highlighter: Pygments
+highlighter: rouge
 
 textColor: #FF0000
 
@@ -57,9 +57,6 @@ nav:
 gems: [jekyll-paginate]
 paginate: 10
 paginate_path: "page/:num/"
-markdown: redcarpet
-redcarpet:
-    extensions: ["tables"]
 
 
 
