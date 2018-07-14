@@ -125,10 +125,48 @@ tag: javascript
 
     15. `String.prototype.substr(start[, length])`：返回一个字符串中从指定位置开始到指定字符数的字符。
 
-    ---
+    16. `String.prototype.match()`： `match（）`函数是**字符对象**的方法！！！
 
-    **下面是字符串的正则表达式用法**
+        - 接受一个**正则表达式**
 
-    ---
+            1. 正则表达式没有加`g`时，返回的数组会带有一个`index`属性，表示匹配结果的索引；
 
-    16. 
+            ```
+            var reg = /matc(h)/;
+
+            var str = 'this is a match function test.';
+
+            var re = str.match(reg);
+
+            re;
+
+            // ["match", "h", index: 10, input: "this is a match function test."]
+            ```
+
+            2. 如果加了`g`，则只会返回匹配项组成的数组（不包含括号）。
+
+            ```
+            var reg = /matc(h)/g;
+
+            var str = 'this is a match function test.';
+
+            var re = str.match(reg);
+
+            re;
+
+            // ["match"]
+            ```
+
+    17. `String.prototype.replace()`:replace() 方法返回一个由替换值替换一些或所有匹配的模式后的新字符串。模式可以是一个字符串或者一个正则表达式, 替换值可以是一个字符串或者一个每次匹配都要调用的函数。(自己写代码有用到这个函数多次，还算熟)。
+
+    >str.replace(regexp|substr, newSubStr|function)
+
+    1. 第二个参数是**字符串**时, 可以使用下图中所示变量名。对于最后一个变量名`$n`，要特别说明下，第一个括号用1表示而不是0。
+
+    ![特殊变量名](/images/js/3.png)
+
+    2. 第二个参数是**函数**时，每次匹配成功都会调用这个函数，将返回结果作为替代字符串。
+
+    ![函数参数](/images/js/4.png)
+
+
