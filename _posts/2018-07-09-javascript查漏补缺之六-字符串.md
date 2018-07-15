@@ -159,14 +159,50 @@ tag: javascript
 
     17. `String.prototype.replace()`:replace() 方法返回一个由替换值替换一些或所有匹配的模式后的新字符串。模式可以是一个字符串或者一个正则表达式, 替换值可以是一个字符串或者一个每次匹配都要调用的函数。(自己写代码有用到这个函数多次，还算熟)。
 
-    >str.replace(regexp|substr, newSubStr|function)
+        >str.replace(regexp|substr, newSubStr|function)
 
-    1. 第二个参数是**字符串**时, 可以使用下图中所示变量名。对于最后一个变量名`$n`，要特别说明下，第一个括号用1表示而不是0。
+        1. 第二个参数是**字符串**时, 可以使用下图中所示变量名。对于最后一个变量名`$n`，要特别说明下，第一个括号用1表示而不是0。
 
-    ![特殊变量名](/images/js/3.png)
+        ![特殊变量名](/images/js/3.png)
 
-    2. 第二个参数是**函数**时，每次匹配成功都会调用这个函数，将返回结果作为替代字符串。
+            ```
+            //交换一个字符串中两个单词的位置
 
-    ![函数参数](/images/js/4.png)
+            var re = /(\w+)\s(\w+)/;
+            var str = "John Smith";
+            var newstr = str.replace(re, "$2, $1");
+            // Smith, John
+            console.log(newstr);
+            ```
+
+        2. 第二个参数是**函数**时，每次匹配成功都会调用这个函数，将返回结果作为替代字符串。
+
+        ![函数参数](/images/js/4.png)
+
+    18. `String.prototype.search()`: 如果匹配成功，则 search() 返回正则表达式在字符串中首次匹配项的索引。否则，返回 -1。
+
+        使用**-1**来判断是否有匹配成功。
+
+        ```
+        function testinput(re, str){
+        var midstring;
+        if (str.search(re) != -1){
+            midstring = " contains ";
+        } else {
+            midstring = " does not contain ";
+        }
+        console.log (str + midstring + re);
+        }
+        ```
+
+    19. `String.prototype.repeat()`：记得以前看python的时候好像字符串和乘号能直接翻倍字符串，js中好像没有这种功能。
+
+    20. `String.prototype.trim()`: **trim方法**只会删除开头和结尾的空白，对于字符中的空白无能为力。
+
+2. 模板字符串
+
+    1. 换行：这个超方便。超方便！
+
+
 
 
