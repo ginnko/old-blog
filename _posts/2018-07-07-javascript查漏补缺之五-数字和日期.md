@@ -1,6 +1,6 @@
 ---
 layout: post
-title: javascript查漏补缺之五-《数字和日期》
+title: javascript查漏补缺之五——《数字和日期》
 date: 2018-07-07
 tag: javascript
 ---

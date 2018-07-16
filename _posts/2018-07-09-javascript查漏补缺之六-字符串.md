@@ -1,6 +1,6 @@
 ---
 layout: post
-title: javascript查漏补缺之六-《字符串》
+title: javascript查漏补缺之六——《字符串》
 date: 2018-07-09
 tag: javascript
 ---
