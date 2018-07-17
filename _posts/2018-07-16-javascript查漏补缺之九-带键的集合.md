@@ -7,6 +7,7 @@ tag: javascript
 
 [Map](http://es6.ruanyifeng.com/#docs/set-map#Map)
 
+### Map
 
 1. 创建Map
 
@@ -148,3 +149,34 @@ tag: javascript
       this.report(key, value);
     }, reporter);
     ```
+13. Map转JSON
+
+  1. 当Map的键为字符串时
+
+    ```
+    function strMapToJson(strMap) {
+      return JSON.stringify(strMapToObj(strMap));
+    }
+
+    let myMap = new Map().set('yes', true).set('no', false);
+    strMapToJson(myMap)
+    // '{"yes":true,"no":false}'
+    ```
+
+  2. 当Map的键包含其他类型的值时
+
+    ```
+    function mapToArrayJson(map) {
+      return JSON.stringify([...map]);
+    }
+
+    let myMap = new Map().set(true, 7).set({foo: 3}, ['abc']);
+    mapToArrayJson(myMap)
+    // '[[true,7],[{"foo":3},["abc"]]]'
+    ```
+
+### WeakMap
+
+1. WeakMap的专用场合就是，它的键所对应的对象，可能会在将来消失。WeakMap结构有助于防止内存泄漏。**一旦消除对该节点的引用，它占用的内存就会被垃圾回收机制释放。Weakmap 保存的这个键值对，也会自动消失。**
+
+2. WeakMap只有四个方法可用：get()、set()、has()、delete()。没有size属性。
