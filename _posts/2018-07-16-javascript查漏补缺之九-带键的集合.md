@@ -5,9 +5,7 @@ date: 2018-07-16
 tag: javascript
 ---
 
-[Map](http://es6.ruanyifeng.com/#docs/set-map#Map)
-
-### Map
+### [1.Map](http://es6.ruanyifeng.com/#docs/set-map#Map)
 
 1. 创建Map
 
@@ -180,3 +178,68 @@ tag: javascript
 1. WeakMap的专用场合就是，它的键所对应的对象，可能会在将来消失。WeakMap结构有助于防止内存泄漏。**一旦消除对该节点的引用，它占用的内存就会被垃圾回收机制释放。Weakmap 保存的这个键值对，也会自动消失。**
 
 2. WeakMap只有四个方法可用：get()、set()、has()、delete()。没有size属性。
+
+
+### [2. Set](http://es6.ruanyifeng.com/#docs/set-map#Set)
+
+Set类似于数组，但是成员的值都是唯一的，没有重复的值。
+
+1. 创建Set对象
+
+    1. 使用`add`方法
+
+      ```
+      const s = new Set();
+
+      [2, 3, 5, 4, 5, 2, 2].forEach(x => s.add(x));
+      ```
+    
+    2. 传入数组或类数组参数
+
+      ```
+      //传入数组参数
+        const set = new Set([1, 2, 3, 4, 4]);
+        [...set]
+
+      //传入类数组参数
+        const set = new Set(document.querySelectorAll('div'));
+        set.size // 56
+      ```
+2. 数组去重的方法
+
+  ```
+  // 去除数组的重复成员
+  [...new Set(array)]
+  ```
+
+3. Set对象判断元素是否相等的算法
+
+    算法类似`===`，但是NaN在Set中被认为是等于自身的，这点和`===`不！一！样！
+
+4. Set对象的属性
+
+    - size属性，查看元素个数
+
+5. Set对象的方法
+
+    - add(value)：添加某个值，返回 Set 结构本身。
+
+    - delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
+
+    - has(value)：返回一个布尔值，表示该值是否为Set的成员。
+
+    - clear()：清除所有成员，没有返回值。
+
+    Map对象添加元素使用的是`set`。
+
+6. Set对象转成普通数组对象
+
+    1. `[...setObject]`
+
+    2. `Array.from(setObject)`
+
+7. 
+
+### 遗留问题
+
+在Map和Set中都出现过iterable结构这个东西，这个要看下。
