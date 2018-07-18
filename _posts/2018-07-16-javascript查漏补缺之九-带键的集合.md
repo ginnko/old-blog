@@ -238,7 +238,59 @@ Set类似于数组，但是成员的值都是唯一的，没有重复的值。
 
     2. `Array.from(setObject)`
 
-7. 
+7. 遍历器
+
+    - keys()
+
+    - values()
+
+    - entries()
+
+  生成的遍历器结果可以使用`for of`来循环遍历进行下一步操作。由于Set对象键名和键值相同，所以`keys()`和`values()`的结果相同。
+
+  Set结构的实例默认可遍历，默认遍历器生成函数就是`values（）`方法，所以可以省略写成：
+
+    ```
+    let set = new Set(['red', 'green', 'blue']);
+
+    for (let x of set) {
+      console.log(x);
+    }
+    // red
+    // green
+    // blue
+    ```
+8. forEach（）
+
+    和Map结构相同，Set结构的forEach（）函数同样可以接受第二个参数，作为第一个函数参数中的this
+
+9. 使用Set实现交集、并集、差集
+
+    ```
+    let a = new Set([1, 2, 3]);
+    let b = new Set([4, 3, 2]);
+
+    // 并集
+    let union = new Set([...a, ...b]);
+    // Set {1, 2, 3, 4}
+
+    // 交集
+    let intersect = new Set([...a].filter(x => b.has(x)));
+    // set {2, 3}
+
+    // 差集
+    let difference = new Set([...a].filter(x => !b.has(x)));
+    // Set {1}
+    ```
+10. Set的一个用法
+
+    **Set的遍历顺序就是插入顺序。这个特性有时非常有用，比如使用 Set 保存一个回调函数列表，调用时就能保证按照添加顺序调用。**
+
+
+### weakSet
+
+WeakSet 的成员只能是对象，而不能是其他类型的值。
+
 
 ### 遗留问题
 
