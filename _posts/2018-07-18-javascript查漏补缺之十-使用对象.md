@@ -83,4 +83,18 @@ tag: javascript
 
     2. 定义setters使用了set
 
-    3. 
+    3. 使用getter和setter时的方式和普通对象属性相同
+
+6. 第二种使用getters和setters的方法
+
+    ```
+    var d = Date.prototype;
+    Object.defineProperty(d, "year", {
+      get: function() { return this.getFullYear() },
+      set: function(y) { this.setFullYear(y) }
+    });
+    ```
+
+7. delete操作符
+
+    **注意！**`delete`操作符只能用于删除一个不是继承来的属性。
