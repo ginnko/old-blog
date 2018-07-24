@@ -40,7 +40,7 @@ tag: javascript
           this.projects = []//增加了projects属性
         }
 
-        WorkBee.prototype = Object.create(Employee.prototype);
+        WorkerBee.prototype = Object.create(Employee.prototype);
         ```
 
     3. 创建SalesPerson和Engineer
@@ -81,6 +81,36 @@ tag: javascript
         mark.projects = [];
         ```
         
-        上面创建的`mark`对象具有上述属性，其中`projects`属性来自mark本身，`name`和`dept`两个属性来自原型链上的`Employee`对象。
-
         >mark 对象从`mark.__proto__`中保存的原型对象中继承了`name`和`dept`属性的值。并由`WorkerBee`构造器函数为`projects`属性设置了本地值。 这就是`JavaScript`中的属性和属性值的继承。
+
+        使用`Object.hasOwnProperty`检验上面三个属性，返回`true`，可见不论是构造函数显式设置的属性还是通过原型链隐式传回的属性，这些属性都是对象自身的属性，如果此时修改这些属性，只是针对这个对象，不会影响原型，不会影响相同原型的其他对象。
+
+    5. 对象模型的另一种使用
+
+        1. 创建可以传参数的构造函数 
+
+        ```javascript
+        function Employee(name, dept){
+          this.name = name || '';
+          this.dept= dept || 'general'
+        }
+        ```
+
+        2. 在下一层构造函数中调用上层构造函数
+
+        ```javascript
+        function WorkerBee(name, dept, projs){
+          this.base = Employee;
+          this.base(name, dept);
+          this.projects = projs || [];
+        }
+
+        WorkerBee.prototype = new Employee;
+        ```
+        注意上面的代码！先将`Employee`赋值给`this.base`，然后再通过`this.base`调用，这时，Employee内部的`this`指向`this.base`中的`this`也就是使用`new`关键字创建的对象。
+
+        3. 使用`new`调用构造函数创建对象
+
+        ```javascript
+        const mark = new WorkerBee("smith, mark", 'training', ['javascript']);
+        ```
