@@ -9,4 +9,78 @@ tag: javascript
 
 1. JavaScript 是一种基于原型而不是基于类的面向对象语言。
 
-2. 
+2. 对象模型使用（创建Employee层级结构）
+
+    Employee的层级结构见下图：
+
+    ![employee层级结构](/images/js/6.png)
+
+    1. 创建Employee的构造函数
+
+        ```javascript
+        function Employee () {
+          this.name = "";
+          this.dept = "general";
+        }
+
+        ```
+
+    2. 创建Manager和WorkerBee
+
+        ```javascript
+        function Manager () {
+          Employee.call(this);
+          this.reports = [];//增加了reports属性
+        }
+
+        Manager.prototype = Object.create(Employee.prototype);
+
+        function WorkerBee () {
+          Employee.call(this);
+          this.projects = []//增加了projects属性
+        }
+
+        WorkBee.prototype = Object.create(Employee.prototype);
+        ```
+
+    3. 创建SalesPerson和Engineer
+
+        ```javascript
+        function SalesPerson () {
+          WorkerBee.call(this);
+          this.dept = 'sales';//给这个属性重新赋值
+          this.quota = 100;//增加quota属性
+        }
+
+        SalesPerson.prototype = Object.create(WorkerBee.prototype);
+
+        function Engineer () {
+          WorkerBee.call(this);
+          this.dept = 'engineering';//给这个属性重新赋值
+          this.machine = '';//增加了machine属性
+        }
+
+        Engineer.prototype = Object.create(WorkerBee.prototype);
+        ```
+
+    4. 利用构造函数创建对象
+
+        ```javascript
+        var mark = new WorkerBee;
+        ```
+
+        上面的代码经历了下面的创建过程：
+
+        >当javascript发现`new`操作符时，它会创建一个**通用对象**,并将其作为关键字`this`的值传递给`WorkerBee`的构造函数。该构造函数显式地设置projects属性的值，然后隐式地将其内部的`[[Prototype]]`属性设置为`WorkerBee.prototype`的值。内置的`[[Prototype]]`属性决定了用于返回属性值的原型链。一旦这些属性设置完成，javascript返回新创建的对象，然后赋值语句会将变量mark的值指向该对象。
+
+        >这个过程不会显式的将 mark所继承的原型链中的属性值作为本地变量存放在 mark 对象中。当请求属性的值时，JavaScript 将首先检查对象自身中是否存在属性的值，如果有，则返回该值。如果不存在，JavaScript会检查原型链（使用内置的 [[Prototype]] 属性）。如果原型链中的某个对象包含该属性的值，则返回这个值。如果没有找到该属性，JavaScript 则认为对象中不存在该属性。
+
+        ```javascript
+        mark.name = "";
+        mark.dept = "general";
+        mark.projects = [];
+        ```
+        
+        上面创建的`mark`对象具有上述属性，其中`projects`属性来自mark本身，`name`和`dept`两个属性来自原型链上的`Employee`对象。
+
+        >mark 对象从`mark.__proto__`中保存的原型对象中继承了`name`和`dept`属性的值。并由`WorkerBee`构造器函数为`projects`属性设置了本地值。 这就是`JavaScript`中的属性和属性值的继承。
