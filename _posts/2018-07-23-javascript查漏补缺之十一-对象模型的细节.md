@@ -113,4 +113,51 @@ tag: javascript
 
         ```javascript
         const mark = new WorkerBee("smith, mark", 'training', ['javascript']);
+
+        function Engineer (name, projs, mach) {
+          this.base = WorkerBee;
+          this.base(name, "engineering", projs);
+          this.machine = mach || "";
+        }
+
+        Engineer.prototype = new WorkerBee;
+
+        var jane = new Engineer("Doe, Jane", ["navigator", "javascript"], "belau");
         ```
+
+        javascript会按以下步骤执行:
+
+        1. new 操作符创建了一个新的通用对象，并将其 __proto__ 属性设置为 Engineer.prototype。
+
+        2. new 操作符将该新对象作为 this 的值传递给 Engineer 构造器。
+        
+        3. 构造器为该新对象创建了一个名为 base 的新属性，并指向 WorkerBee 的构造器。这使得 WorkerBee 构造器成为 Engineer 对象的一个方法。
+
+        4. 构造器调用`base`方法，将传给该构造器的参数中的两个，作为参数传递给base方法，同事还传递一个字符串参数`engineering`。显式地在构造器中使用`engineering`表明所有Engineer对象继承的`dept`属性具有相同的值，且该值重载了继承自`Employee`的值。
+
+        5. 因为`base`是`Engineer`的一个方法，在调用`base`时，javascrit将在步骤1中创建的对象绑定给`this`关键字。这样，`WorkerBee`函数接着将`Doe， Jane`和`engineering`参数传递给`Employee`构造器函数。当从`Employee`构造器函数返回时，`WorkerBee`函数用剩下的参数设置`projects`属性。
+
+        6. 当从`base`方法返回后，`Engineer`构造器将对象的`machine`属性初始化为`belau`
+
+        7. 当从构造器返回时，javascript将新对象赋值给`jane`变量。
+
+        **重要说明：**
+
+        ```javascript
+        function Engineer (name, projs, mach) {
+          this.base = WorkerBee;
+          this.base(name, "engineering", projs);
+          this.machine = mach || "";
+        }
+        var jane = new Engineer("Doe, Jane", ["navigator", "javascript"], "belau");
+        Employee.prototype.specialty = "none";
+        ```
+        如果代码写成上面这样，对象jane不会继承speciality属性。必须显式地设置原型才能确保动态的继承，也就是添加下面这行代码：
+
+        `Engineer.prototype = new WorkerBee;`
+
+        此刻，对象jane就可以动态的继承speciality属性了。
+
+3. instance操作符
+
+    instanceof 操作符可以用来将一个对象和一个函数做检测，如果对象继承自函数的原型，则该操作符返回真。
