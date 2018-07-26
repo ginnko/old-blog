@@ -75,7 +75,30 @@ tag: javascript
 
         3. 这个函数复制的节点信息包括：克隆一个元素节点会拷贝它所有的属性以及属性值,当然也就包括了属性上绑定的事件(比如onclick="alert(1)"),但不会拷贝那些使用addEventListener()方法或者node.onclick = fn这种用JavaScript动态绑定的事件
 
+    12. HTMLElement.style
+
+        1. 使用这个属性的结果是样式都是**内联样式**。
+
+    13. Element.setAttribute()
+
+        1. 使用这个方法设置的样式是普通的css样式表的样式：`Element.setAttribute(class, className)`。
+
+    14. 获取视窗尺寸
+
+        `window.innerWidth`：视窗宽度
+
+        `window.innerHeight`:视窗高度
     
+    15. 视窗的resize事件
+
+        ```javascript
+        window.onresize = function() {
+            WIDTH = window.innerWidth;
+            HEIGHT = window.innerHeight;
+            div.style.width = WIDTH + 'px';
+            div.style.height = HEIGHT + 'px';
+        }
+        ```
     - 给DOM添加节点需要上述1、2、3、4、5五个方法;
 
         下面这个例子里添加文本使用的是Node.textContent属性。
@@ -94,5 +117,6 @@ tag: javascript
         linkPara.appendChild(text);
 
         ```
+
 
         
