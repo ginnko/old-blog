@@ -85,3 +85,5 @@ tag: javascript
       };
     }
     ```
+
+DB说IDB暂且用不到，搁置。
