@@ -1,7 +1,7 @@
 ---
 layout: post
-title: javascript查漏补缺之十五 ——《从服务器获取数据》
-date: 2018-07-27
+title: javascript查漏补缺之十六 ——《客户端内存》
+date: 2018-07-30
 tag: javascript
 ---
 
