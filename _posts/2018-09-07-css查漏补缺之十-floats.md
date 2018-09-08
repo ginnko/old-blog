@@ -29,4 +29,58 @@ tag: css
 
 - both
 
-### 
+### clearing boxes wrapped around a float
+
+如下代码：
+
+```html
+<div class="wrapper">
+  <div class="box">Float</div>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam dolor, eu lacinia lorem placerat vulputate. Duis felis orci, pulvinar id metus ut, rutrum luctus orci. Cras porttitor imperdiet nunc, at ultricies tellus laoreet sit amet. </p>
+</div>
+```
+```css
+.box {
+  float: left;
+  margin: 15px;
+
+  width: 150px;
+  height: 100px;
+  border-radius: 5px;
+  background-color: rgb(207,232,220);
+  padding: 1em;
+}
+
+.wrapper {
+  background-color: rgb(79,185,227);
+  padding: 10px;
+  color: #fff; 
+}
+```
+然后就会出现图片中的布局：
+
+![clearing-box](/images/css/clearing-box.png)
+
+造成这种结果的原因是浮动元素脱离了正常流。想做到文本在浮动元素旁边排列且外部盒子能包住两个元素，靠给文本添加清除浮动是无法做到的，只会导致文本另起一行。
+
+解决办法：
+
+1. clearfix hack
+
+实质就是在wrapper后面添加内容，并两侧清除浮动。
+
+```css
+.wrapper::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+```
+
+2. 使用`overflow`值非`visible`
+
+实质是这个属性让wrapper成为了一个新的BFC，而BFC在计算高度的时候会包含浮动元素。
+
+3. 使用`display: flow-root`
+
+专业的做法，实质也是创建了新的BFC。
