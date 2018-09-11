@@ -75,3 +75,5 @@ color stops: 下面的`orange 40%`就是一个color stops，可以指定任意�
 - fixed：使背景图相对于视口fixed，无论内容还是页面滚动背景图都不会滚动
 
 - local：页面滚动或元素滚动，背景图都跟着滚动
+
+要看一下这个简写属性：https://developer.mozilla.org/zh-CN/docs/Web/CSS/Shorthand_properties
