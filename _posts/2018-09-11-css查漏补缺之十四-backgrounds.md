@@ -49,3 +49,29 @@ tag: css
 - 使用百分数定位是改变了背景图和元素的对齐基点，background-position： 100% 50%; 就是将背景图片的 100%（right） 50%（center） 这个点，和元素的 100%（right） 50%（center） 这个点对齐。
 
 - 使用关键字定位感觉类似百分比
+
+### background image:gradients
+
+有两种gradient方式：线性和辐射
+
+#### 线性gradient
+
+`background-image: linear-gradient(to bottom, orange, yellow);`
+
+linear-gradient函数接收三个参数：方向、起始颜色、结束颜色。
+
+color stops: 下面的`orange 40%`就是一个color stops，可以指定任意个color stops，40%表示的是位置而不是颜色的程度，是沿着指定的方向按此值确定的，此处可以使用绝对值。
+
+`background-image: linear-gradient(to bottom, yellow, orange 40%, yellow);`
+
+### background attachment
+
+首先，这个属性只有在内容出现滚动的时候才会生效。
+
+这个属性有三个值可用：
+
+- scroll：页面滚动，背景图也跟着滚动，元素滚动，背景图固定
+
+- fixed：使背景图相对于视口fixed，无论内容还是页面滚动背景图都不会滚动
+
+- local：页面滚动或元素滚动，背景图都跟着滚动
